@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: hugin
+  name: hugin
+  namespace: hugin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hugin
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: hugin
+    spec:
+      serviceAccountName: hugin-sa
+      containers:
+      - image: docker.io/library/hugin:0.0.1-SNAPSHOT
+        name: hugin
+        resources: {}
