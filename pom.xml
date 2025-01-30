@@ -129,7 +129,7 @@
         <profile>
             <id>staging</id>
             <properties>
-                <docker.image.name>DEV-hugin</docker.image.name>
+                <docker.image.name>dev-hugin</docker.image.name>
                 <docker.image.version>${project.version}-${git.commit.id.abbrev}</docker.image.version>
             </properties>
         </profile>
