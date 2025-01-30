@@ -16,6 +16,9 @@
     <properties>
         <java.version>21</java.version>
         <spring-cloud.version>2024.0.0</spring-cloud.version>
+        <docker.image.name>hugin</docker.image.name>
+        <docker.image.version>${project.version}</docker.image.version>
+        <docker.image.full.name>dummy.io/hugin/${docker.image.name}:${docker.image.version}</docker.image.full.name>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -60,6 +63,34 @@
     </dependencies>
 
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <configuration>
+                        <excludes>
+                            <exclude>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok</artifactId>
+                            </exclude>
+                        </excludes>
+                        <image>
+                            <env>
+                                <BP_JVM_VERSION>${java.version}</BP_JVM_VERSION>
+                                <BP_JVM_CDS_ENABLED>true</BP_JVM_CDS_ENABLED>
+                                <BP_SPRING_AOT_ENABLED>true</BP_SPRING_AOT_ENABLED>
+                                <BPE_DEFAULT_BPL_JAVA_NMT_ENABLED>false</BPE_DEFAULT_BPL_JAVA_NMT_ENABLED>
+                                <BPE_APPEND_JAVA_TOOL_OPTIONS xml:space="preserve"> -XX:+AlwaysPreTouch -Djava.security.egd=file:/dev/./urandom</BPE_APPEND_JAVA_TOOL_OPTIONS>
+                            </env>
+                            <createdDate>now</createdDate>
+                            <builder>paketobuildpacks/builder-jammy-tiny:latest</builder>
+                            <name>${docker.image.full.name}</name>
+                        </image>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>
             <plugin>
                 <groupId>io.github.git-commit-id</groupId>
@@ -84,14 +115,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                </configuration>
                 <executions>
                     <execution>
                         <id>build-info</id>
@@ -109,5 +132,15 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>staging</id>
+            <properties>
+                <docker.image.name>DEV-hugin</docker.image.name>
+                <docker.image.version>${project.version}-${git.commit.id.abbrev}</docker.image.version>
+            </properties>
+        </profile>
+    </profiles>
 
 </project>

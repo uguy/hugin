@@ -1,4 +1,5 @@
-spring.application.name: hugin
+spring:
+  application.name: hugin
 management:
   info:
     build:
@@ -7,6 +8,8 @@ management:
       enabled: true
     java:
       enabled: true
+    env:
+      enabled: true
   endpoints:
     web:
       exposure:
@@ -14,3 +17,5 @@ management:
   endpoint:
     health:
       show-details: always
+info:
+  my-env-var: ${MY_VAR}
