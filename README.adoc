@@ -4,6 +4,12 @@ Simple demo application that show host and build info.
 
 image:./home.png[]
 
+[NOTE]
+====
+The application name comes from there : https://fr.wikipedia.org/wiki/Hugin_et_Munin +
+It was chosen because of poor inspiration and https://munin-monitoring.org/[Munin] already exists (Great app !)
+====
+
 == Build
 
 The project is a standard spring-boot maven project.
