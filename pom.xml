@@ -10,7 +10,7 @@
     </parent>
     <groupId>org.hugin</groupId>
     <artifactId>hugin</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <name>hugin</name>
     <description>hugin</description>
     <properties>
@@ -103,7 +103,7 @@
                             <BPE_APPEND_JAVA_TOOL_OPTIONS xml:space="preserve"> -XX:+AlwaysPreTouch -Djava.security.egd=file:/dev/./urandom</BPE_APPEND_JAVA_TOOL_OPTIONS>
                         </env>
                         <createdDate>now</createdDate>
-                        <builder>paketobuildpacks/builder-jammy-tiny:latest</builder>
+                        <builder>paketobuildpacks/builder-noble-java-tiny:latest</builder>
                         <name>${docker.image.full.name}</name>
                     </image>
                 </configuration>

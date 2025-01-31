@@ -10,6 +10,8 @@ management:
       enabled: true
     env:
       enabled: true
+    os:
+      enabled: true
   endpoints:
     web:
       exposure:
@@ -18,4 +20,4 @@ management:
     health:
       show-details: always
 info:
-  my-env-var: ${MY_VAR}
+  my_env_var: ${MY_VAR}

@@ -16,7 +16,7 @@
 <body>
 <div class="container my-3">
     <h1 class="mb-4"><img src="favicon_64x64.png" class="img-fluid" alt="hugin"> Application Node Details</h1>
-
+    <div id="msg" class="alert alert-success fw-bold" role="alert">-</div>
     <div class="row mb-3">
 
         <div class="col">
@@ -90,6 +90,9 @@
         fetch('/actuator/info', {method: 'GET', headers: {'Accept': 'application/json'}})
             .then(response => response.json())
             .then(json => {
+                if (json.my_env_var ){
+                    document.getElementById("msg").innerHTML = `${json.my_env_var}`
+                }
                 if (json.git) {
                     document.getElementById("git-info").innerHTML =
                         `<p><strong>Branch:</strong> ${json.git.branch} </p><hr>
